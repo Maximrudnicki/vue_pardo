@@ -1,6 +1,8 @@
 <template>
     <div>
         <h2>Words</h2>
+        <button @click="showForm = true">Add Word</button>
+        <WordForm v-if="showForm" />
         <ul>
         <li v-for="word in words" :key="word.id">
           <strong>{{ word.word }}</strong>: {{ word.definition }}
@@ -11,8 +13,18 @@
 </template>
 
 <script>
+import WordForm from './WordForm.vue';
+
 export default {
-    computed: {
+  components: {
+    WordForm,
+  },
+  data() {
+    return {
+      showForm: false,
+    };
+  },
+  computed: {
     words() {
       return this.$store.state.words;
     }
@@ -24,5 +36,10 @@ export default {
 </script>
 
 <style scoped>
-    
+button {
+  padding: 5px 10px;
+  background-color: none;
+  color: teal;
+  border: 1px solid teal;
+}
 </style>

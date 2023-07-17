@@ -40,6 +40,9 @@ export default createStore({
     setWords(state, words) {
       state.words = words;
     },
+    addWord(state, word) {
+      state.words.push(word);
+    },
   },
   actions: {
     async fetchWords({ commit }) {
@@ -50,6 +53,20 @@ export default createStore({
         };
         const response = await axios.get("/api/v1/vocab/", config);
         commit("setWords", response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async addWord({ commit }, formData) {
+      try {
+        const token = localStorage.getItem('token');
+        const config = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+        console.log(formData)
+        const response = await axios.post('/api/v1/vocab/', formData, config);
+        const newWord = response.data;
+        commit('addWord', newWord);
       } catch (error) {
         console.error(error);
       }
