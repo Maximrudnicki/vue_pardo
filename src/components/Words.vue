@@ -3,11 +3,17 @@
         <h2>Words</h2>
         <button @click="showForm = true">Add Word</button>
         <WordForm v-if="showForm" />
+        <div v-if="selectedWordId">
+          <p>Are you sure you want to delete this word?</p>
+          <button @click="deleteWord">OK</button>
+          <button @click="cancelDeleteWord">Cancel</button>
+        </div>
         <ul>
-        <li v-for="word in words" :key="word.id">
-          <strong>{{ word.word }}</strong>: {{ word.definition }}
-          <router-link :to="'/words/' + word.id">View</router-link>
-        </li>
+          <li v-for="word in words" :key="word.id">
+            <strong>{{ word.word }}</strong>: {{ word.definition }}
+            <router-link :to="'/words/' + word.id">View</router-link>
+            <button @click="confirmDeleteWord(word.id)">Delete</button>
+          </li>
         </ul>
     </div>
 </template>
@@ -22,6 +28,7 @@ export default {
   data() {
     return {
       showForm: false,
+      selectedWordId: null,
     };
   },
   computed: {
@@ -31,7 +38,19 @@ export default {
   },
   mounted() {
     this.$store.dispatch('fetchWords');
-  }
+  },
+  methods: {
+    confirmDeleteWord(wordId) {
+      this.selectedWordId = wordId;
+    },
+    deleteWord() {
+      this.$store.dispatch("deleteWord", this.selectedWordId);
+      this.selectedWordId = null;
+    },
+    cancelDeleteWord() {
+      this.selectedWordId = null;
+    },
+  },
 }
 </script>
 

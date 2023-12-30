@@ -28,7 +28,7 @@ export default {
             };
             this.$store.dispatch('addWord', formData);
             this.word = '';
-            this.definition = '';      
+            this.definition = '';
         }
   }
 }

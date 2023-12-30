@@ -6,9 +6,9 @@
 
                 <form @submit.prevent="submitForm">
                     <div class="field">
-                        <label>Username</label>
+                        <label>Email</label>
                         <div class="control">
-                            <input type="text" class="input" v-model="username">
+                            <input type="text" class="input" v-model="email">
                         </div>
                     </div>
 
@@ -44,7 +44,7 @@ export default {
     name: 'LogIn',
     data() {
         return {
-            username: '',
+            email: '',
             password: '',
             errors: []
         }
@@ -54,16 +54,17 @@ export default {
     },
     methods: {
         async submitForm() {
+            console.log("submitForm Invoked")
             axios.defaults.headers.common["Authorization"] = ""
             localStorage.removeItem("token")
             const formData = {
-                username: this.username,
+                email: this.email,
                 password: this.password
             }
             await axios
-                .post("/api/v1/token/", formData)
+                .post("/api/v1/authentication/login/", formData)
                 .then(response => {
-                    const token = response.data.access
+                    const token = response.data.data.token
                     this.$store.commit('setToken', token)
                     
                     axios.defaults.headers.common["Authorization"] = "Bearer " + token

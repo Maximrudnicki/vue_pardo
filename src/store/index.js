@@ -1,12 +1,12 @@
-import { createStore } from 'vuex'
+import { createStore } from "vuex";
 import axios from "axios";
 
 export default createStore({
   state: {
     words: [],
     isAuthenticated: false,
-    token: '',
-    isLoading: false
+    token: "",
+    isLoading: false,
   },
   getters: {
     getWordById: (state) => (wordId) => {
@@ -18,24 +18,24 @@ export default createStore({
   },
   mutations: {
     initializeStore(state) {
-      if (localStorage.getItem('token')) {
-          state.token = localStorage.getItem('token')
-          state.isAuthenticated = true
+      if (localStorage.getItem("token")) {
+        state.token = localStorage.getItem("token");
+        state.isAuthenticated = true;
       } else {
-          state.token = ''
-          state.isAuthenticated = false
-      } 
+        state.token = "";
+        state.isAuthenticated = false;
+      }
     },
     setIsLoading(state, status) {
-      state.isLoading = status
+      state.isLoading = status;
     },
     setToken(state, token) {
-      state.token = token
-      state.isAuthenticated = true
-    },  
+      state.token = token;
+      state.isAuthenticated = true;
+    },
     removeToken(state) {
-        state.token = ''
-        state.isAuthenticated = false
+      state.token = "";
+      state.isAuthenticated = false;
     },
     setWords(state, words) {
       state.words = words;
@@ -43,35 +43,69 @@ export default createStore({
     addWord(state, word) {
       state.words.push(word);
     },
+    deleteWord(state, wordId) {
+      state.words = state.words.filter((word) => word.id !== wordId);
+    },
+    updateWord(state, updatedWord) {
+      const index = state.words.findIndex(word => word.id === updatedWord.id);
+      if (index !== -1) {
+        state.words.splice(index, 1, updatedWord);
+      }
+    },
   },
   actions: {
     async fetchWords({ commit }) {
       try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
         const config = {
           headers: { Authorization: `Bearer ${token}` },
         };
         const response = await axios.get("/api/v1/vocab/", config);
-        commit("setWords", response.data);
+        console.log(response.data.data)
+        commit("setWords", response.data.data);
       } catch (error) {
         console.error(error);
       }
     },
     async addWord({ commit }, formData) {
       try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
         const config = {
           headers: { Authorization: `Bearer ${token}` },
         };
-        console.log(formData)
-        const response = await axios.post('/api/v1/vocab/', formData, config);
+        console.log(formData);
+        const response = await axios.post("/api/v1/vocab/", formData, config);
         const newWord = response.data;
-        commit('addWord', newWord);
+        commit("addWord", newWord);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteWord({ commit }, wordId) {
+      try {
+        const token = localStorage.getItem("token");
+        const config = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+        await axios.delete(`/api/v1/vocab/${wordId}`, config);
+        commit("deleteWord", wordId);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async updateWord({ commit }, formData) {
+      try {
+        const token = localStorage.getItem("token");
+        const config = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+        const response = await axios.patch(`/api/v1/vocab/${formData.id}`, formData, config);
+        const updatedWord = response.data;
+        commit("updateWord", updatedWord);
       } catch (error) {
         console.error(error);
       }
     },
   },
-  modules: {
-  }
-})
+  modules: {},
+});
