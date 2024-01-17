@@ -61,7 +61,9 @@ export default createStore({
           headers: { Authorization: `Bearer ${token}` },
         };
         const response = await axios.get("/api/v1/vocab/", config);
-        console.log(response.data.data)
+        response.data.data.sort((a, b) => {
+          return b.created_at.seconds - a.created_at.seconds;
+        });        
         commit("setWords", response.data.data);
       } catch (error) {
         console.error(error);
@@ -73,7 +75,6 @@ export default createStore({
         const config = {
           headers: { Authorization: `Bearer ${token}` },
         };
-        console.log(formData);
         const response = await axios.post("/api/v1/vocab/", formData, config);
         const newWord = response.data;
         commit("addWord", newWord);
