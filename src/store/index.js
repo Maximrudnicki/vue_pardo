@@ -12,8 +12,8 @@ export default createStore({
     getWordById: (state) => (wordId) => {
       return state.words.find((word) => word.id === wordId);
     },
-    learnedWords(state) {
-      return state.words.filter((word) => word.learned);
+    unlearnedWords(state) {
+      return state.words.filter((word) => word.is_learned === false);
     },
   },
   mutations: {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Cards</h2>
-    <router-link to="/training" @click="submitResult">Exit</router-link>
+    <router-link to="/training" v-if="!this.words" @click="submitResult">Exit</router-link>
 
     <div v-if="currentWord">
       <p>
@@ -20,6 +20,12 @@
 <script>
 import axios from "axios";
 export default {
+  props: {
+    words: {
+      type: Array,
+      required: false,
+    },
+  },
   data() {
     return {
       currentIndex: 0,
@@ -28,14 +34,22 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("fetchWords");
+    if (!this.words) {
+      this.$store.dispatch("fetchWords");
+    }
   },
   computed: {
     currentWord() {
       return this.randomWords[this.currentIndex];
     },
     randomWords() {
-      const shuffledWords = this.shuffleArray(this.$store.state.words);
+      let shuffleWords;
+      if (this.words) {
+        shuffleWords = this.shuffleArray(this.words);
+      } else {
+        shuffleWords = this.shuffleArray(this.$store.state.words);
+      }
+      const shuffledWords = shuffleWords;
       return shuffledWords.slice(0, 5);
     },
   },
@@ -93,6 +107,7 @@ export default {
             config
           );
         }
+        // this.$emit("trainingCompleted");
       }
     },
   },

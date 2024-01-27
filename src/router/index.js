@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Words from '@/components/Words.vue'
 import WordDetails from '@/components/WordDetails.vue'
 import Training from '@/components/trainings/Training.vue'
+import AllTogether from '@/components/trainings/AllTogether.vue'
 import WordTranslate from '@/components/trainings/WordTranslate.vue'
 import WordAudio from '@/components/trainings/WordAudio.vue'
 import Constructor from '@/components/trainings/Constructor.vue'
@@ -24,6 +25,11 @@ const routes = [
     path: '/training',
     name: 'training',
     component: Training
+  },
+  {
+    path: '/training/all-together',
+    name: 'all-together',
+    component: AllTogether
   },
   {
     path: '/training/word-translate',

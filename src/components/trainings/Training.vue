@@ -1,24 +1,21 @@
 <template>
-    <div>
-        <h2>Words Training</h2>
-        
-        <router-link to='/training/cards'>Cards</router-link>
-        <br>
-        <router-link to='/training/word-translate'>Word - Translation</router-link>
-        <br>
-        <router-link to='/training/constructor'>Constructor</router-link>
-        <br>
-        <router-link to='/training/word-audio'>Word Audio</router-link>
+  <div>
+    <h2>Words Training</h2>
 
-    </div>
+    <router-link to="/training/all-together">All together</router-link>
+    <br />
+    <router-link to="/training/cards">Cards</router-link>
+    <br />
+    <router-link to="/training/word-translate">Word - Translation</router-link>
+    <br />
+    <router-link to="/training/constructor">Constructor</router-link>
+    <br />
+    <router-link to="/training/word-audio">Word Audio</router-link>
+  </div>
 </template>
 
 <script>
-export default {
-    
-}
+export default {};
 </script>
 
-<style scoped>
-    
-</style>
+<style scoped></style>
