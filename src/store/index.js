@@ -52,6 +52,12 @@ export default createStore({
         state.words.splice(index, 1, updatedWord);
       }
     },
+    updateWordStatus(state, updatedWord) {
+      const index = state.words.findIndex(word => word.id === updatedWord.id);
+      if (index !== -1) {
+        state.words.splice(index, 1, updatedWord);
+      }
+    },
   },
   actions: {
     async fetchWords({ commit }) {
@@ -103,6 +109,20 @@ export default createStore({
         const response = await axios.patch(`/api/v1/vocab/${formData.id}`, formData, config);
         const updatedWord = response.data;
         commit("updateWord", updatedWord);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async updateWordStatus({ commit }, formData) {
+      try {
+        const token = localStorage.getItem("token");
+        const config = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+        console.log(formData)
+        const response = await axios.patch(`/api/v1/vocab/${formData.id}/status`, formData, config);
+        const updatedWordStatus = response.data;
+        commit("updateWordStatus", updatedWordStatus);
       } catch (error) {
         console.error(error);
       }
