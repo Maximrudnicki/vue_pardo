@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Words from '@/components/Words.vue'
-import WordDetails from '@/components/WordDetails.vue'
+import WordDetails from '@/components/modals/WordDetails.vue'
 import Training from '@/components/trainings/Training.vue'
 import AllTogether from '@/components/trainings/AllTogether.vue'
 import WordTranslate from '@/components/trainings/WordTranslate.vue'
