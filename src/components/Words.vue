@@ -12,11 +12,11 @@
             <div class="word-content">
               <strong>{{ word.word }}</strong>
               <p>{{ word.definition }}</p>
+              <WordDetails :word="word" :show="showWordDetails" @cancel="cancelWordDetails"/>
             </div>
             <div class="word-actions">
               <!-- <router-link :to="'/words/' + word.id" class="action-button">View</router-link> -->
               <button @click="showDetails(word.id)" class="action-button">View</button>
-              <WordDetails :show="showWordDetails" @cancel="cancelWordDetails"/>
               <button @click="confirmDeleteWord(word.id)" class="action-button">
                 Delete
               </button>

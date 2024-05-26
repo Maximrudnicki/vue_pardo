@@ -1,9 +1,9 @@
 <template>
   <div class="modal" v-if="show" @click="$emit('cancel')">
     <div class="modal-content" @click.stop>
-      <div v-if="word">
-        <strong>{{ word.word }}</strong
-        >: {{ word.definition }}
+      <div >
+        <strong>{{ this.word.word }}</strong
+        >: {{ this.word.definition }}
       </div>
 
       <button class="action-button" @click="showForm = true">Edit</button>
@@ -34,7 +34,7 @@
 export default {
   props: {
     show: Boolean,
-    wordId: Number,
+    word: Object,
   },
   data() {
     return {
@@ -44,13 +44,13 @@ export default {
     };
   },
   computed: {
-    word() {
-      const wordId = parseInt(this.$route.params.id, 10);
-      if (this.$store.state.words.length == 0) {
-        this.$store.dispatch("fetchWords");
-      }
-      return this.$store.getters.getWordById(wordId);
-    },
+    // word() {
+    //   const wordId = parseInt(this.$route.params.id, 10);
+    //   if (this.$store.state.words.length == 0) {
+    //     this.$store.dispatch("fetchWords");
+    //   }
+    //   return this.$store.getters.getWordById(wordId);
+    // },
   },
   methods: {
     submitForm() {
@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style scoped>
-/* form {
+ form {
   display: flex;
   flex-direction: column;
 }
@@ -101,7 +101,7 @@ button {
   background-color: none;
   color: teal;
   border: 1px solid teal;
-} */
+} 
 .modal {
   position: fixed;
   top: 0;

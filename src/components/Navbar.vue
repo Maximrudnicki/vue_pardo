@@ -3,6 +3,7 @@
       <div @click="$router.push('/')">Pardo</div>
       <div class="navbar__btns">
         <button @click="$router.push('/')">Words</button>
+        <button style="margin-left: 20px" @click="$router.push('/groups')">Groups</button>
         <button style="margin-left: 20px" @click="$router.push('/training')">Training</button>
         <button style="margin-left: 20px" @click="$router.push('/about')">About</button>
         <button style="margin-left: 20px" @click="$router.push('/log-in')">LogIn</button>
