@@ -20,9 +20,7 @@ export default {
     },
     methods: {
         submitForm() {
-            const userId = this.$store.state.words[0].user;
             const formData = {
-                user: userId,
                 word: this.word,
                 definition: this.definition
             };

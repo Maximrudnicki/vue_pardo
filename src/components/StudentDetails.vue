@@ -3,7 +3,8 @@
     <br>
     <router-link class="button" :to="'/groups/' + groupId">Back</router-link>
 
-    <strong style="font-size: 24px; margin-left: 20px;">{{ studentId }} - Statistics</strong>
+    <strong style="font-size: 24px; margin-left: 20px;" v-if="stats">{{stats.student.username}}, 
+      {{stats.student.email}} - Statistics</strong>
     <br />
     <div class="word-form" v-if="showForm">
       <br>

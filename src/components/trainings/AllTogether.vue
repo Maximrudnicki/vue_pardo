@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>All Together</h2>
-    <router-link to="/training">Exit</router-link>
+    <router-link class="button" to="/training">Exit</router-link>
 
     <Cards v-if="currentTraining === 'cards'" :words="randomWords" />
     <WordTranslate v-if="currentTraining === 'wordTranslate'" :words="randomWords" />
@@ -10,7 +10,7 @@
     
     
     <br />
-    <button @click="nextTraining" v-if="currentTraining !== 'completed'">Next Training</button>
+    <button @click="nextTraining" v-if="currentTraining !== 'completed'"  class="action-button">Next Training</button>
 
   </div>
 </template>
@@ -71,4 +71,32 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.action-button {
+  background-color: #fff;
+  border: none;
+  color: teal;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid teal;
+}
+
+.button {
+  background-color: #fff;
+  border: none;
+  color: teal;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid teal;
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color: #f0f0f0;
+}
+.action-button:hover {
+  background-color: #f0f0f0;
+}
+</style>

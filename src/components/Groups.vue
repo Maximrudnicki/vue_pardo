@@ -44,7 +44,7 @@
             <div>
               <p>
                 <strong>{{ group.title }}</strong> {{ group.group_id }}
-                <router-link class="button" :to="'/groups/' + group.group_id">View</router-link>
+                <router-link class="button" :to="'/groups/student/' + group.group_id">View</router-link>
               </p>
             </div>
           </li>

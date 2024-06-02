@@ -7,6 +7,7 @@ export default createStore({
     teacherGroups: [],
     studentGroups: [],
     student: null,
+    teacher: null,
     group: null,
     isAuthenticated: false,
     token: "",
@@ -56,6 +57,9 @@ export default createStore({
     setStudent(state, student) {
       state.student = student;
     },
+    setTeacher(state, teacher) {
+      state.teacher = teacher;
+    },
     addWord(state, word) {
       state.words.push(word);
     },
@@ -92,9 +96,10 @@ export default createStore({
           headers: { Authorization: `Bearer ${token}` },
         };
         const response = await axios.get("/api/v1/vocab/", config);
+        if (response.data.data != null) {
         response.data.data.sort((a, b) => {
           return b.created_at.seconds - a.created_at.seconds;
-        });        
+        });}
         commit("setWords", response.data.data);
       } catch (error) {
         console.error(error);
@@ -159,6 +164,19 @@ export default createStore({
         };
         const response = await axios.post("/api/v1/group/find_student_info/", formData, config);    
         commit("setStudent", response.data.data);
+        return response.data.data
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async findTeacher({ commit }, formData) {
+      try {
+        const token = localStorage.getItem("token");
+        const config = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+        const response = await axios.post("/api/v1/group/find_teacher_info/", formData, config);    
+        commit("setTeacher", response.data.data);
         return response.data.data
       } catch (error) {
         console.error(error);

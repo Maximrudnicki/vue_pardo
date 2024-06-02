@@ -1,15 +1,15 @@
 <template>
   <div>
     <h2>Cards</h2>
-    <router-link to="/training" v-if="!this.words" @click="submitResult">Exit</router-link>
+    <router-link class="button" to="/training" v-if="!this.words" @click="submitResult">Exit</router-link>
 
     <div v-if="currentWord">
       <p>
         <strong>{{ currentWord.word }} </strong> -
         <span v-if="isAnswerSubmitted">{{ currentWord.definition }}</span>
       </p>
-      <button @click="checkWord" v-if="!isAnswerSubmitted">Check</button>
-      <button @click="nextWord" v-if="isAnswerSubmitted">Next</button>
+      <button @click="checkWord" v-if="!isAnswerSubmitted" class="action-button">Check</button>
+      <button @click="nextWord" v-if="isAnswerSubmitted" class="action-button">Next</button>
     </div>
     <div v-else>
       <p>No more words</p>
@@ -114,4 +114,32 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.action-button {
+  background-color: #fff;
+  border: none;
+  color: teal;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid teal;
+}
+
+.button {
+  background-color: #fff;
+  border: none;
+  color: teal;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid teal;
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color: #f0f0f0;
+}
+.action-button:hover {
+  background-color: #f0f0f0;
+}
+</style>

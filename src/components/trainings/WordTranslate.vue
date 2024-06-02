@@ -1,13 +1,11 @@
 <template>
   <div>
     <h2>Word - Translation</h2>
-    <router-link to="/training" v-if="!this.words" @click="submitResult">Exit</router-link>
+    <router-link class="button" to="/training" v-if="!this.words" @click="submitResult">Exit</router-link>
 
     <div v-if="currentWord">
-      <p>
-        {{ currentWord.word }}
+        <h4>{{ currentWord.word }}</h4>
         <!-- <button @click="playSound(currentWord.word)">📢</button> -->
-      </p>
 
       <ul>
         <li
@@ -29,8 +27,8 @@
           {{ translation.definition }}
         </li>
       </ul>
-      <button @click="submitAnswer" v-if="!isAnswerSubmitted">Submit</button>
-      <button @click="nextWord" v-if="isAnswerSubmitted">Next</button>
+      <button @click="submitAnswer" v-if="!isAnswerSubmitted" class="action-button">Submit</button>
+      <button @click="nextWord" v-if="isAnswerSubmitted" class="action-button">Next</button>
     </div>
     <div v-else>
       <p>No more words</p>
@@ -195,5 +193,33 @@ export default {
 }
 .incorrect {
   background-color: lightcoral;
+}
+
+.action-button {
+  background-color: #fff;
+  border: none;
+  color: teal;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid teal;
+}
+
+.button {
+  background-color: #fff;
+  border: none;
+  color: teal;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid teal;
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color: #f0f0f0;
+}
+.action-button:hover {
+  background-color: #f0f0f0;
 }
 </style>

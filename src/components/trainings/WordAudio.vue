@@ -1,12 +1,12 @@
 <template>
   <div>
     <h2>Word Audio</h2>
-    <router-link to="/training" v-if="!this.words" @click="submitResult">Exit</router-link>
-
+    <router-link class="button" to="/training" v-if="!this.words" @click="submitResult">Exit</router-link>
+    <p></p>
     <div v-if="currentWord">
-      <button @click="playSound">📢</button>
+      <button @click="playSound" style="margin-right: 10px;" class="action-button">📢</button>
 
-      <span v-if="isAnswerSubmitted" class="button">{{ currentWord.word }}</span>
+      <span v-if="isAnswerSubmitted">{{ currentWord.word }}</span>
       <br /><br />
 
       <input
@@ -19,10 +19,10 @@
           'input is-incorrect': isCorrect === false,
         }"
       />
-      <br /><br />
+      <br />
 
-      <button @click="checkAnswer" v-if="!isAnswerSubmitted">Check</button>
-      <button @click="nextWord" v-if="isAnswerSubmitted">Next</button>
+      <button @click="checkAnswer" v-if="!isAnswerSubmitted" class="action-button">Check</button>
+      <button @click="nextWord" v-if="isAnswerSubmitted" class="action-button">Next</button>
     </div>
     <div v-else>
       <p>No more words</p>
@@ -179,7 +179,34 @@ export default {
     color: #9e0303;
   }
 }
-.button {
-  margin-left: 10px;
+
+
+.action-button {
+  background-color: #fff;
+  border: none;
+  color: teal;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid teal;
 }
+
+.button {
+  background-color: #fff;
+  border: none;
+  color: teal;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid teal;
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color: #f0f0f0;
+}
+.action-button:hover {
+  background-color: #f0f0f0;
+}
+
 </style>
