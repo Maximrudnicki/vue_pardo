@@ -185,6 +185,10 @@ export default {
 </script>
 
 <style scoped>
+li {
+  width: max-content;
+}
+
 .selected {
   background-color: lightblue;
 }

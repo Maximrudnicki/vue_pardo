@@ -39,7 +39,7 @@
 
                     <div class="field">
                         <div class="control">
-                            <button class="button is-dark">Sign up</button>
+                            <button style="margin-top: 10px;" class="button is-dark action-button">Sign up</button>
                         </div>
                     </div>
 
@@ -108,3 +108,19 @@ export default {
     }
 }
 </script>
+
+<style>
+.action-button {
+  background-color: #fff;
+  border: none;
+  color: teal;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid teal;
+}
+
+.action-button:hover {
+  background-color: #f0f0f0;
+}
+</style>

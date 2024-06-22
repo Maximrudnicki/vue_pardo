@@ -3,7 +3,7 @@
     <h2>Cards</h2>
     <router-link class="button" to="/training" v-if="!this.words" @click="submitResult">Exit</router-link>
 
-    <div v-if="currentWord">
+    <div v-if="currentWord" style="margin-top: 10px;">
       <p>
         <strong>{{ currentWord.word }} </strong> -
         <span v-if="isAnswerSubmitted">{{ currentWord.definition }}</span>

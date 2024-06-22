@@ -43,15 +43,6 @@ export default {
       isLearned: null,
     };
   },
-  computed: {
-    // word() {
-    //   const wordId = parseInt(this.$route.params.id, 10);
-    //   if (this.$store.state.words.length == 0) {
-    //     this.$store.dispatch("fetchWords");
-    //   }
-    //   return this.$store.getters.getWordById(wordId);
-    // },
-  },
   methods: {
     submitForm() {
       const updatedWord = {

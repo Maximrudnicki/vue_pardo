@@ -15,25 +15,7 @@ export default {
     show: Boolean,
     student: Object,
   },
-//   data() {
-//     return {
-//       student: null,
-//     };
-//   },
   mounted() {},
-//   methods: {
-//     findStudent() {
-//       const formData = {
-//         student_id: this.studentId,
-//         group_id: this.groupId,
-//       };
-//       console.log(formData);
-//       const studentPromise = this.$store.dispatch("findStudent", formData);
-//       studentPromise.then((student) => {
-//         this.student = student;
-//       });
-//     },
-//   },
 };
 </script>
 

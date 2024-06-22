@@ -5,7 +5,7 @@
             <input v-focus v-model="word" type="text" placeholder="Word" required/>
       
             <input v-model="definition" type="text" placeholder="Definition" required/>
-            <button type="submit">Submit</button>
+            <button type="submit" class="action-button">Submit</button>
         </form>
     </div>
 </template>
@@ -52,5 +52,33 @@ button {
     background-color: none;
     color: teal;
     border: 1px solid teal;
+}
+
+.action-button {
+  background-color: #fff;
+  border: none;
+  color: teal;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid teal;
+}
+
+.button {
+  background-color: #fff;
+  border: none;
+  color: teal;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid teal;
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color: #f0f0f0;
+}
+.action-button:hover {
+  background-color: #f0f0f0;
 }
 </style>
