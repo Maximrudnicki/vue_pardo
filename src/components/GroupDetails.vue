@@ -26,8 +26,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="student in group.students" :key="student.StudentId">
-            <td>{{ student.StudentId }}</td>
+          <tr v-for="student in group.students" :key="student.student_id">
+            <td>{{ student.student_id }}</td>
             <td>{{ student.email }}</td>
             <td>{{ student.username }}</td>
             <td>{{ student.words.length * 4 }}</td>
@@ -52,7 +52,7 @@
             {{ student.username }}
             <router-link
               class="button"
-              :to="'/groups/' + group.group_id + '/' + student.StudentId"
+              :to="'/groups/' + group.group_id + '/' + student.student_id"
               >View Details</router-link
             >
             <StudentDetails

@@ -9,12 +9,12 @@
           <strong style="font-size: 24px;">Teacher: {{teacher.username}}, {{teacher.email}}</strong>
         </p>
         <ul v-for="student in group.students">
-          <li v-if="student.StudentId === group.user_id">
+          <li v-if="student.student_id === group.user_id">
             <div >
               {{ student.username }}
               <router-link
                 class="button"
-                :to="'/groups/student/' + group.group_id + '/' + student.StudentId"
+                :to="'/groups/student/' + group.group_id + '/' + student.student_id"
                 >View Details</router-link
               >
               <StudentDetails
