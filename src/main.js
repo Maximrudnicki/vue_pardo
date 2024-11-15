@@ -6,7 +6,7 @@ import directives from '@/directives';
 import store from './store'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'https://mono-pardo.onrender.com'
+axios.defaults.baseURL = process.env.VUE_APP_BACKEND_URL;
 
 const app = createApp(App)
 
