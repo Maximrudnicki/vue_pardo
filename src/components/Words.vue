@@ -1,27 +1,30 @@
 <template>
-  <div class="container">
+  <div class="words-page">
+    <!-- Header -->
     <header class="header">
       <h1>MY DICTIONARY</h1>
     </header>
+
     <WordForm v-if="showForm" />
+
     <main class="content">
-      <button @click="showForm = true" class="action-button">Add Word</button>
+      <div class="word-actions">
+        <button @click="toggleForm" class="add-word-button">{{ showForm ? '×' : '+' }}</button>
+      </div>
+
       <div class="words-list">
         <ul>
           <li v-for="word in words" :key="word.id" class="word-card">
             <div class="word-content">
-              <strong>{{ word.word }}</strong>
-              <p>{{ word.definition }}</p>
-              <WordDetails :word="word" :show="showWordDetails" @cancel="cancelWordDetails"/>
+              <strong>{{ word.word }}</strong> <span>{{ word.definition }}</span>
             </div>
+
             <div class="word-actions">
-              <!-- <router-link :to="'/words/' + word.id" class="action-button">View</router-link> -->
               <button @click="showDetails(word.id)" class="action-button">View</button>
-              <button @click="confirmDeleteWord(word.id)" class="action-button">
-                Delete
-              </button>
-              <!-- <button class="action-button" @click="playSound(word.word)">📢</button> -->
+              <button @click="confirmDeleteWord(word.id)" class="action-button">Delete</button>
             </div>
+
+            <WordDetails :word="word" :show="showWordDetails" @cancel="cancelWordDetails" />
             <DeleteWord :show="selectedWordId" :wordId="selectedWordId" @delete="deleteWord" @cancel="cancelDeleteWord" />
           </li>
         </ul>
@@ -59,6 +62,9 @@ export default {
     this.loadVoices();
   },
   methods: {
+    toggleForm() {
+      this.showForm = !this.showForm;
+    },
     showDetails(wordId) {
       this.showWordDetails = wordId;
     },
@@ -100,105 +106,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  font-family: Arial, sans-serif;
-  color: #333;
-}
-
-.header {
-  text-align: center;
-  padding: 20px;
-  background-color: #f0f0f0;
-}
-
-.h1 {
-  font-size: 24px;
-  margin: 0;
-}
-
-.content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-}
-
-.words-list {
-  flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  margin-bottom: 20px;
-}
-
-.word-card {
-  width: 50vw;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin: 10px;
-  padding: 20px;
-  display: flex;
-}
-
-.word-content {
-  flex: 1;
-}
-
-.word-actions {
-  display: flex;
-  justify-content: flex-end;
-  .action-button {
-    margin-right: 10px;
-  }
-}
-
-.action-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #f0f0f0; 
-  color: #333;  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  text-align: center;
-}
-
-.action-button:hover {
-  background-color: #ddd; 
-}
-
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.05);
-  z-index: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  width: 300px;
-  text-align: center;
-}
-
-.actions {
-  display: flex;
-  justify-content: space-around;
-}
-</style>

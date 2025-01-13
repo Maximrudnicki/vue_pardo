@@ -1,0 +1,46 @@
+@import './navbar.css';
+@import './log-in.css';
+@import './sign-up.css';
+@import './about.css';
+@import './common.css';
+@import './words/words.css';
+@import './trainings/training.css';
+@import './trainings/common.css';
+@import './trainings/word-translate.css';
+@import './trainings/word-audio.css';
+
+:root {
+  --primary-color: #2EC4B6; /* Основной цвет */
+  --accent-color: #FF9F1C; /* Акцентный цвет (кнопки, ошибки) */
+  --text-color: #3C3C3C; /* Основной цвет текста */
+  --background-color: #FFFFFF; /* Цвет фона */
+  --highlight-color: #CBF3F0; /* Подсветка, индикаторы */
+  --error-color: #FFE5E5;
+  --error-text-color: #FF4D4D;
+  --success-color: #4caf50;
+  --font-family: "Roboto", sans-serif; /* Основной шрифт */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.5;
+  height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+.app {
+  padding: 2.5vh;
+}
+

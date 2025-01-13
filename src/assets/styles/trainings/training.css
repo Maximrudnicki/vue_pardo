@@ -1,0 +1,41 @@
+.training-page {
+  margin-top: 80px;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.training-page__title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.training-page__links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.training-page__button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  color: var(--background-color);
+  background-color: var(--primary-color);
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.training-page__button:hover {
+  color: var(--background-color);
+  background-color: var(--accent-color);
+}
+
+.training-page__button:focus {
+  color: var(--background-color);
+  outline: 2px solid var(--highlight-color);
+}

@@ -1,40 +1,63 @@
 <template>
-  <div>
-    <h2>Word - Translation</h2>
-    <router-link class="button" to="/training" v-if="!this.words" @click="submitResult">Exit</router-link>
+  <div class="training-page">
+    <header class="training-header">
+      <router-link
+        class="training-exit-button"
+        to="/training"
+        v-if="!this.words"
+      >
+        Exit
+      </router-link>
+    </header>
 
-    <div v-if="currentWord">
-        <h4>{{ currentWord.word }}</h4>
-        <!-- <button @click="playSound(currentWord.word)">📢</button> -->
+    <div v-if="currentWord" class="word-container">
+      <h4 class="word-title">{{ currentWord.word }}</h4>
+      <!-- <button @click="playSound(currentWord.word)" class="play-sound-button">📢</button> -->
 
-      <ul>
+      <ul class="answers-list">
         <li
           v-for="(translation, i) in shuffledTranslations"
           :key="i"
           @click="selectAnswer(i, translation, currentIndex)"
-          :class="{
-            selected: selectedAnswer === i,
-            disabled: isAnswerSubmitted,
-            correct:
-              isAnswerSubmitted &&
-              translation.definition === correctAnswer.definition,
-            incorrect:
-              isAnswerSubmitted &&
-              translation.definition !== correctAnswer.definition &&
-              selectedAnswer === i,
-          }"
+          :class="[
+            'answer-item',
+            { selected: selectedAnswer === i, disabled: isAnswerSubmitted },
+            isAnswerSubmitted &&
+            translation.definition === correctAnswer.definition
+              ? 'correct'
+              : '',
+            isAnswerSubmitted &&
+            translation.definition !== correctAnswer.definition &&
+            selectedAnswer === i
+              ? 'incorrect'
+              : '',
+          ]"
         >
           {{ translation.definition }}
         </li>
       </ul>
-      <button @click="submitAnswer" v-if="!isAnswerSubmitted" class="action-button">Submit</button>
-      <button @click="nextWord" v-if="isAnswerSubmitted" class="action-button">Next</button>
+      <div class="action-buttons">
+        <button
+          @click="submitAnswer"
+          v-if="!isAnswerSubmitted"
+          class="action-button"
+        >
+          Submit
+        </button>
+        <button
+          @click="nextWord"
+          v-if="isAnswerSubmitted"
+          class="action-button"
+        >
+          Next
+        </button>
+      </div>
     </div>
-    <div v-else>
-      <p>No more words</p>
+
+    <div v-else class="results-container">
       <div>
         <h3>Result:</h3>
-        <ul>
+        <ul class="results-list">
           <li v-for="(answer, index) in result" :key="index">
             {{ answer }}
           </li>
@@ -166,64 +189,27 @@ export default {
         const config = {
           headers: { Authorization: `Bearer ${token}` },
         };
+        let request = [];
+
         for (let i = 0; i < this.result.length; i++) {
-          const formData = {
-            result: this.result[i].is_learned,
-            training: "word_translation",
+          let updates = [
+            {
+              field: "word_translation",
+              value: true,
+            },
+          ];
+
+          let requestItem = {
+            id: this.result[i].word_id,
+            updates: updates,
           };
-          axios.patch(
-            `/api/v1/vocab/${this.result[i].word_id}/trainings`,
-            formData,
-            config
-          );
+
+          request.push(requestItem);
         }
+        axios.patch(`/api/v1/vocab`, request, config);
         // this.$emit("trainingCompleted");
       }
     },
   },
 };
 </script>
-
-<style scoped>
-li {
-  width: max-content;
-}
-
-.selected {
-  background-color: lightblue;
-}
-.correct {
-  background-color: lightgreen;
-}
-.incorrect {
-  background-color: lightcoral;
-}
-
-.action-button {
-  background-color: #fff;
-  border: none;
-  color: teal;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  border: 1px solid teal;
-}
-
-.button {
-  background-color: #fff;
-  border: none;
-  color: teal;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  border: 1px solid teal;
-  text-decoration: none;
-}
-
-.button:hover {
-  background-color: #f0f0f0;
-}
-.action-button:hover {
-  background-color: #f0f0f0;
-}
-</style>

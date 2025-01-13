@@ -66,12 +66,13 @@ export default createStore({
         const config = {
           headers: { Authorization: `Bearer ${token}` },
         };
-        const response = await axios.get("/api/v1/vocab/", config);
-        if (response.data.data != null) {
-        response.data.data.sort((a, b) => {
-          return b.created_at.seconds - a.created_at.seconds;
+        const response = await axios.get("/api/v1/vocab", config);
+        if (response.data != null) {
+        response.data.sort((a, b) => {
+          // return b.created_at.seconds - a.created_at.seconds; // for different data format
+          return new Date(b.created_at) - new Date(a.created_at);
         });}
-        commit("setWords", response.data.data);
+        commit("setWords", response.data);
       } catch (error) {
         console.error(error);
       }

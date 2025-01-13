@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Constructor</h2>
-    <router-link  class="button" to="/training" v-if="!this.words" @click="submitResult">Exit</router-link>
+    <router-link  class="button" to="/training" v-if="!this.words">Exit</router-link>
 
     <div v-if="currentWord">
       <p style="font-size: 20px;">
@@ -141,17 +141,24 @@ export default {
         const config = {
           headers: { Authorization: `Bearer ${token}` },
         };
+        let request = [];
+
         for (let i = 0; i < this.result.length; i++) {
-          const formData = {
-            result: this.result[i].is_learned,
-            training: "constructor",
+          let updates = [
+            {
+              field: "constructor",
+              value: true,
+            },
+          ];
+
+          let requestItem = {
+            id: this.result[i].word_id,
+            updates: updates,
           };
-          axios.patch(
-            `/api/v1/vocab/${this.result[i].word_id}/trainings`,
-            formData,
-            config
-          );
+
+          request.push(requestItem);
         }
+        axios.patch(`/api/v1/vocab`, request, config);
         // this.$emit("trainingCompleted");
       }
     },

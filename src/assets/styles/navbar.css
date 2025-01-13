@@ -1,0 +1,51 @@
+.navbar {
+  display: flex;
+  justify-content: space-between; /* Разделяем бренд и кнопки */
+  align-items: center; /* Центрируем элементы по вертикали */
+  background-color: var(--background-color); /* Основной фон */
+  padding: 10px 20px; /* Отступы внутри navbar */
+  border-bottom: 1px solid #d1d8df; /* Лёгкая линия внизу для отделения */
+  color: var(--primary-color); /* Цвет текста */
+  width: 100%; /* Занимаем всю ширину */
+  position: fixed; /* Фиксируем наверху */
+  top: 0; /* Привязываем к верхней части экрана */
+  left: 0; /* Привязываем к левому краю */
+  z-index: 1000; /* Устанавливаем высокий z-index, чтобы navbar был над контентом */
+}
+
+.navbar__brand {
+  font-size: 1.45rem;
+  font-weight: bold;
+  cursor: pointer; /* Указываем, что это кликабельно */
+}
+
+.navbar__btns {
+  display: flex; /* Горизонтальный список кнопок */
+  gap: 20px; /* Расстояние между кнопками */
+}
+
+.navbar__btn {
+  font-size: 1rem; /* Обычный размер шрифта */
+  color: var(--text-color); /* Текст основного цвета */
+  background: none; /* Без фона */
+  border: none; /* Без рамки */
+  cursor: pointer; /* Указываем, что это кликабельно */
+  padding: 5px; /* Небольшие отступы для кликабельной зоны */
+}
+
+.navbar__btn:hover {
+  color: var(--accent-color);
+}
+
+.navbar__btn--primary {
+  background-color: var(--accent-color); /* Акцентный фон */
+  color: var(--background-color); /* Белый текст */
+  border-radius: 4px; /* Легкие скругленные углы */
+  padding: 6px 12px; /* Увеличенные отступы для кнопки */
+  transition: 0.4s ease; /* Плавный эффект */
+}
+
+.navbar__btn--primary:hover  {
+  background-color: var(--highlight-color); /* Легкий оттенок при наведении */
+  color: var(--text-color)
+}

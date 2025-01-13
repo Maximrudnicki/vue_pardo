@@ -1,34 +1,61 @@
 <template>
-  <div>
-    <h2>Word Audio</h2>
-    <router-link class="button" to="/training" v-if="!this.words" @click="submitResult">Exit</router-link>
-    <p></p>
-    <div v-if="currentWord">
-      <button @click="playSound" style="margin-right: 10px;" class="action-button">📢</button>
+  <div class="training-page">
+    <header class="training-header">
+      <router-link
+        class="training-exit-button"
+        to="/training"
+        v-if="!this.words"
+        >Exit</router-link
+      >
+    </header>
 
-      <span v-if="isAnswerSubmitted">{{ currentWord.word }}</span>
-      <br /><br />
+    <div v-if="currentWord" class="word-container">
+      <div class="vertical-layout">
+        <button
+          @click="playSound"
+          class="action-button"
+          style="margin-bottom: 10px"
+        >
+          📢
+        </button>
+        <span
+          v-if="isAnswerSubmitted"
+          class="answer-display"
+          style="margin-bottom: 10px"
+          >{{ currentWord.word }}</span
+        >
+      </div>
 
       <input
         type="text"
         v-model="userAnswer"
         placeholder="Enter the word"
+        class="input"
         :class="{
-          'input is-sunken': !isAnswerSubmitted,
-          'input is-correct': isCorrect === true,
-          'input is-incorrect': isCorrect === false,
+          'is-sunken': !isAnswerSubmitted,
+          'is-correct': isCorrect === true,
+          'is-incorrect': isCorrect === false,
+          'top-space': !isAnswerSubmitted === true,
         }"
       />
       <br />
 
-      <button @click="checkAnswer" v-if="!isAnswerSubmitted" class="action-button">Check</button>
-      <button @click="nextWord" v-if="isAnswerSubmitted" class="action-button">Next</button>
+      <!-- Кнопки для проверки ответа и перехода к следующему слову -->
+      <button
+        @click="checkAnswer"
+        v-if="!isAnswerSubmitted"
+        class="action-button"
+      >
+        Submit
+      </button>
+      <button @click="nextWord" v-if="isAnswerSubmitted" class="action-button">
+        Next
+      </button>
     </div>
-    <div v-else>
-      <p>No more words</p>
+    <div v-else class="results-container">
       <div>
         <h3>Result:</h3>
-        <ul>
+        <ul class="results-list">
           <li v-for="(answer, index) in result" :key="index">
             {{ answer }}
           </li>
@@ -131,82 +158,27 @@ export default {
         const config = {
           headers: { Authorization: `Bearer ${token}` },
         };
+        let request = [];
+
         for (let i = 0; i < this.result.length; i++) {
-          const formData = {
-            result: this.result[i].is_learned,
-            training: "word_audio",
+          let updates = [
+            {
+              field: "word_audio",
+              value: true,
+            },
+          ];
+
+          let requestItem = {
+            id: this.result[i].word_id,
+            updates: updates,
           };
-          axios.patch(
-            `/api/v1/vocab/${this.result[i].word_id}/trainings`,
-            formData,
-            config
-          );
+
+          request.push(requestItem);
         }
+        axios.patch(`/api/v1/vocab`, request, config);
         // this.$emit("trainingCompleted");
       }
     },
   },
 };
 </script>
-
-<style scoped>
-.input {
-  display: block;
-  width: 200px;
-  height: 40px;
-  margin: 10px;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #fff;
-  color: #000;
-
-  &.is-raised {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-  }
-
-  &.is-sunken {
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
-  }
-
-  &.is-correct {
-    background-color: #c8ffef;
-    color: #009839;
-  }
-
-  &.is-incorrect {
-    background-color: #fdb8b8;
-    color: #9e0303;
-  }
-}
-
-
-.action-button {
-  background-color: #fff;
-  border: none;
-  color: teal;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  border: 1px solid teal;
-}
-
-.button {
-  background-color: #fff;
-  border: none;
-  color: teal;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  border: 1px solid teal;
-  text-decoration: none;
-}
-
-.button:hover {
-  background-color: #f0f0f0;
-}
-.action-button:hover {
-  background-color: #f0f0f0;
-}
-
-</style>
